@@ -1,3 +1,6 @@
+# The purpose of this program is to take a .txt file containing all instances of gap, bottom strand, or top strand ROIs in a track and organize them into an excel file.
+# Used after the ImageThreshold.py programs which generate the .txt file
+
 import xlwt
 from xlwt import Workbook
 import os.path
@@ -13,6 +16,7 @@ else:
 
 wb = Workbook()
 
+# Stylistic and headings for excel sheet
 style = xlwt.easyxf('font: bold 1')
 
 tSheet = wb.add_sheet('Top Strand ROI')
@@ -37,10 +41,13 @@ tRow = 1
 bRow = 1
 gRow = 1
 
-
+# for each row in the .txt file, do the following:
 for x in f:
 	# Clean up the line to read in coordinates (A, B)
 	x = x.replace('\t','')
+ 
+    # if the row doesn't start with "End of x.jpg" or is a blank line, take out any parentheses or extra spaces, take everything to the right of the ':' --> A,B
+    # A = start bp, B = end bp
 	if not(x.startswith('E')) and not(x.startswith('\n')):
 		x = x.replace(' ','')
 		x = x.replace('(','')
@@ -51,6 +58,7 @@ for x in f:
 		coordA = float(coordSplit[0]) 
 		coordB = float(coordSplit[1])
 
+        # Depending on if it's a gap, bottom strand, or top strand, go to respective tab and write in the start bp, end bp, middle bp, and size of the region (end - start)
 		if x[0] == 'g':
 			gSheet.write(gRow, 0, coordA)
 			gSheet.write(gRow, 1, coordB)
@@ -70,4 +78,5 @@ for x in f:
 			tSheet.write(tRow, 3, (coordB - coordA))
 			tRow += 1
 
+# Save the excel workbook as the following, change the Track number as necessary based on which track is being read
 wb.save("ROI in the MG1655 E. coli Genome Track 2.xls")
