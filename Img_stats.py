@@ -1,3 +1,6 @@
+# Identical to Image_stats.py except it counts the number of each ROI rather than the average size of the ROI
+# Outputs a figure as well as a .txt file that has summary stats.
+
 from statistics import mean
 from statistics import stdev
 import xlwt

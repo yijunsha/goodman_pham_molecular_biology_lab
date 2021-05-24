@@ -1,3 +1,8 @@
+# Takes in a .xlsx and determines the number of ROIs of each type on the left/right half of the plasmid
+# excluding the OriC and Ter.
+# Outputs a figure of the average size of each ROI in each 35kb region of the genome as well as a
+# .txt file that has summary stats.
+
 from statistics import mean
 from statistics import stdev
 import os.path
