@@ -1,3 +1,6 @@
+# This program is identical to ImageThreshold_PIL.py except that it takes in a .txt of all of the images at once and their respective values
+# This program allows for all the images to be analyzed in one go.
+
 from PIL import Image
 import matplotlib.pyplot as plt
 import sys
