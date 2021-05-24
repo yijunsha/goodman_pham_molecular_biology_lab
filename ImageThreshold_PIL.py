@@ -1,3 +1,8 @@
+# The purpose of this program is to take a .jpg image extracted from CLC Workbench and count the
+# number of red/green pixels in each image to determine whether or not a gap, bottom strand, or
+# top strand ROI exists in that region based on the proportion of the red:green.
+# The program takes in .jpg and outputs a .txt for each ROI and the bp range of each.
+
 from PIL import Image
 import matplotlib.pyplot as plt
 import sys
