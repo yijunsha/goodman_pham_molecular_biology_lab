@@ -1,3 +1,6 @@
+# The purpose of this program is to determine the total number of red/green pixels within a certain range (range can be specified, preferably divisible into 35000)
+# Integrates the number of colored pixels and outputs the values into a .xlsx file
+
 from PIL import Image
 import matplotlib.pyplot as plt
 import xlwt
@@ -15,33 +18,19 @@ def WritetoFile(startPix, endPix):
 	global S1Row
 	global S2Row
 
-	# if BPList == Sheet1:
-	# 	BPList.write(S1Row, 0, (startPix - stpxC)*10.407 + bpStart)
-	# 	BPList.write(S1Row, 1, (endPix - stpxC)*10.407 + bpStart)
-	# 	BPList.write(S1Row, 2, redPix)
-	# 	BPList.write(S1Row, 3, greenPix)
-	# 	S1Row += 1
+	 if BPList == Sheet1:
+	 	BPList.write(S1Row, 0, (startPix - stpxC)*10.407 + bpStart)
+	 	BPList.write(S1Row, 1, (endPix - stpxC)*10.407 + bpStart)
+	 	BPList.write(S1Row, 2, redPix)
+	 	BPList.write(S1Row, 3, greenPix)
+	 	S1Row += 1
 	
-	# if BPList == Sheet2:
-	# 	BPList.write(S2Row, 0, (startPix - stpxC)*10.407 + bpStart)
-	# 	BPList.write(S2Row, 1, (endPix - stpxC)*10.407 + bpStart)
-	# 	BPList.write(S2Row, 2, redPix)
-	# 	BPList.write(S2Row, 3, greenPix)
-	# 	S2Row += 1
-
-	if BPList == Sheet1:
-		BPList.write(S1Row, 0, bpStart)
-		BPList.write(S1Row, 1, (endPix - stpxC)*10.407 + bpStart)
-		BPList.write(S1Row, 2, redPix)
-		BPList.write(S1Row, 3, greenPix)
-		S1Row += 1
-	
-	if BPList == Sheet2:
-		BPList.write(S2Row, 0, bpStart)
-		BPList.write(S2Row, 1, (endPix - stpxC)*10.407 + bpStart)
-		BPList.write(S2Row, 2, redPix)
-		BPList.write(S2Row, 3, greenPix)
-		S2Row += 1
+	 if BPList == Sheet2:
+	 	BPList.write(S2Row, 0, (startPix - stpxC)*10.407 + bpStart)
+	 	BPList.write(S2Row, 1, (endPix - stpxC)*10.407 + bpStart)
+	 	BPList.write(S2Row, 2, redPix)
+	 	BPList.write(S2Row, 3, greenPix)
+	 	S2Row += 1
 	
 	return
 
@@ -71,46 +60,38 @@ def integrate_px():
 	global redPix
 
 	# Make sure to start at the point that is divisible by the range designated
-	# if bpStart % 8750 != 0:
-	# 	diff = bpStart % 8750
-	# 	bpDiff = 8750 - diff
-	# 	bpStart = bpStart + bpDiff
-	# 	stpxC = stpxC + math.floor(bpDiff / 10.407)
+	 if bpStart % 8750 != 0:
+	 	diff = bpStart % 8750
+	 	bpDiff = 8750 - diff
+	 	bpStart = bpStart + bpDiff
+	 	stpxC = stpxC + math.floor(bpDiff / 10.407)
 
-	# startPixel = stpxC
-	# currentRange = 0
+	 startPixel = stpxC
+	 currentRange = 0
 
-	# # Run through the graph to gather all pixels of red/green color
-	# for x in range(stpxC, enpxC):
-	# 	for y in range (stpxR, stpxR - grHeight, -1):
-	# 		if pix[x,y] == (144,209,57):
-	# 			greenPix += 1
-	# 		elif pix[x,y] == (220,65,30):
-	# 			redPix += 1
+	 # Run through the graph to gather all pixels of red/green color
+	 for x in range(stpxC, enpxC):
+	 	for y in range (stpxR, stpxR - grHeight, -1):
+	 		if pix[x,y] == (144,209,57):
+	 			greenPix += 1
+	 		elif pix[x,y] == (220,65,30):
+	 			redPix += 1
 
-	# 	# If the number of pixels correlates to the range designated, send to WritetoFile
-	# 	if currentRange < 840:
-	# 		currentRange += 1
-	# 	elif currentRange == 840:
-	# 		WritetoFile(startPixel, x)
-	# 		startPixel = x
-	# 		currentRange = 0
-	# 		greenPix = 0
-	# 		redPix = 0
-	# 	if (currentRange > 825 and pix[x + 1, y] == (255,255,255)):
-	# 		WritetoFile(startPixel, x)
-	# 		startPixel = x
-	# 		currentRange = 0
-	# 		greenPix = 0
-	# 		redPix = 0
-
-	# Run through the graph to gather all pixels of red/green color
-	for x in range(stpxC, enpxC):
-		for y in range (stpxR, stpxR - grHeight, -1):
-			if pix[x,y] == (144,209,57):
-				greenPix += 1
-			elif pix[x,y] == (220,65,30):
-				redPix += 1
+	 	# If the number of pixels correlates to the range designated, send to WritetoFile
+	 	if currentRange < 840:
+	 		currentRange += 1
+	 	elif currentRange == 840:
+	 		WritetoFile(startPixel, x)
+	 		startPixel = x
+	 		currentRange = 0
+	 		greenPix = 0
+	 		redPix = 0
+	 	if (currentRange > 825 and pix[x + 1, y] == (255,255,255)):
+	 		WritetoFile(startPixel, x)
+	 		startPixel = x
+	 		currentRange = 0
+	 		greenPix = 0
+	 		redPix = 0
 
 	WritetoFile(stpxC, x)
 	greenPix = 0
@@ -124,6 +105,7 @@ if os.path.isfile(filename):
 else:
 	sys.exit("Please enter a valid filename.")
 
+# hardset values for the starting column pixel, starting row pixel, end column pixel, height of the graph, start bp, and variables for the red/green pixels
 stpxC = 615
 stpxR = 418
 enpxC = 4015
